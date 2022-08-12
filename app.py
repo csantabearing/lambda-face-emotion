@@ -12,7 +12,7 @@ model=Sentiment(model_path)
 
 app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
 
-@app.get("/face-sentiment", tags=["Sentiment Analysis"])
+@app.post("/face-sentiment", tags=["Sentiment Analysis"])
 async def sentiment(file: UploadFile = File(...)):
     contents=await file.read()
     nparr = np.fromstring(contents, np.uint8)
@@ -22,11 +22,6 @@ async def sentiment(file: UploadFile = File(...)):
     _, png_img = cv2.imencode('.PNG', return_img)
     encoded_img = base64.b64encode(png_img)
     return StreamingResponse(io.BytesIO(png_img.tobytes()), media_type="image/png")
-    return {
-        'filename': file.filename,
-        'dimensions': img_dimensions,
-        'encoded_img': encoded_img,
-    }
 
 @app.get("/", tags=["Health Check"])
 def root():
