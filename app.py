@@ -12,8 +12,8 @@ model=Sentiment(model_path)
 app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
 
 @app.post("/face-sentiment", tags=["Sentiment Analysis"])
-async def sentiment(file: UploadFile = File(...)):
-    contents=await file.read()
+def sentiment(file: UploadFile = File(...)):
+    contents=io.BytesIO(file).read()
     nparr = np.fromstring(contents, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     return_img = model.predict(img)
@@ -21,7 +21,7 @@ async def sentiment(file: UploadFile = File(...)):
     return StreamingResponse(io.BytesIO(png_img.tobytes()), media_type="image/png")
 
 @app.get("/", tags=["Health Check"])
-async def root():
+def root():
     return {"message": "Ok"}
 
 handler = Mangum(app=app)
