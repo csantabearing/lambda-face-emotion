@@ -1,7 +1,7 @@
 {
     "body": "{\"query\": [\"hello world\"]}",
-    "resource": "/sentiment",
-    "path": "/sentiment",
+    "resource": "/face-sentiment",
+    "path": "/face-sentiment",
     "httpMethod": "GET",
     "isBase64Encoded": false,
     "queryStringParameters": {
@@ -53,8 +53,8 @@
         "userAgent": "Custom User Agent String",
         "user": null
       },
-      "path": "/prod/sentiment",
-      "resourcePath": "/sentiment",
+      "path": "/prod/face-sentiment",
+      "resourcePath": "/face-sentiment",
       "httpMethod": "POST",
       "apiId": "1234567890",
       "protocol": "HTTP/1.1"

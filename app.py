@@ -12,7 +12,7 @@ model=Sentiment(model_path)
 
 app = FastAPI(title='Serverless Lambda FastAPI') #root_path="/Prod/"
 
-@app.get("/sentiment", tags=["Sentiment Analysis"])
+@app.get("/face-sentiment", tags=["Sentiment Analysis"])
 async def sentiment(file: UploadFile = File(...)):
     contents=await file.read()
     nparr = np.fromstring(contents, np.uint8)
