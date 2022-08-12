@@ -15,7 +15,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - run: pip install -r requirements.txt
-      - run: python get_model.py
-      - run: ls model
       - run: sam build
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name face-sentiment
