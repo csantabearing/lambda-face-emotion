@@ -10,7 +10,7 @@ import io
 model_path = './model.h5'
 model=Sentiment(model_path)
 
-app = FastAPI(title='Serverless Lambda FastAPI') #root_path="/Prod/"
+app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
 
 @app.get("/face-sentiment", tags=["Sentiment Analysis"])
 async def sentiment(file: UploadFile = File(...)):
