@@ -13,7 +13,7 @@ app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
 
 @app.post("/face-sentiment", tags=["Sentiment Analysis"])
 def sentiment(file: UploadFile = File(...)):
-    contents=io.BytesIO(file).read()
+    contents=file.read()
     nparr = np.fromstring(contents, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     return_img = model.predict(img)
