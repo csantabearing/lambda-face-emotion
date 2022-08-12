@@ -1,0 +1,5 @@
+numpy
+mangum
+fastapi
+pydantic
+uvicorn
