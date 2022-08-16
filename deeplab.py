@@ -32,10 +32,13 @@ class DeepLabModel(object):
         return resized_image, seg_map, resize_ratio
 
     def transform(self, image, mask, query):
-        os.mkdir(query)
-        google_crawler = GoogleImageCrawler(storage={'root_dir': f'./{query}'})
-        google_crawler.crawl(keyword=query, max_num=1)
-        background = cv2.imread(f'./{queryword}/000001.jpg')
+        if query != '':
+            os.mkdir(query)
+            google_crawler = GoogleImageCrawler(storage={'root_dir': f'./{query}'})
+            google_crawler.crawl(keyword=query, max_num=1)
+            background = cv2.imread(f'./{queryword}/000001.jpg')
+        else:
+            background = cv2.blur(image)
         if (mask > 0.9).sum():
             mask = estimate_alpha_cf(img / 255, mask)
         img = cv2.resize(image,)
