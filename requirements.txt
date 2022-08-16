@@ -6,3 +6,5 @@ uvicorn
 python-multipart
 tensorflow
 opencv-python-headless
+icrawler
+pymatting
