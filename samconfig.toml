@@ -2,10 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "face-sentiment"
+stack_name = "face-bokeh"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-pcatkpeq1n2w"
-s3_prefix = "face-sentiment"
+s3_prefix = "face-bokeh"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
-image_repositories = ["FaceSentimentFunction=681261969843.dkr.ecr.us-east-1.amazonaws.com/facesentiment02552640/facesentimentfunctionb509da23repo"]
-disable_rollback = true
+image_repositories = ["FacebokehFunction=681261969843.dkr.ecr.us-east-1.amazonaws.com/facebokehc95cab60/facebokehfunctioncbaec9f4repo"]
