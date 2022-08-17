@@ -13,7 +13,7 @@ app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
 
 
 @app.post("/face-bokeh", tags=["Face Bokeh"])
-async def sentiment(file: UploadFile = File(...), query: str = ''):
+async def bokeh(file: UploadFile = File(...), query: str = ''):
     contents = await file.read()
     nparr = np.fromstring(contents, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
