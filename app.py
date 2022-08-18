@@ -12,7 +12,7 @@ model = DeepLabModel(model_path)
 app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
 
 
-@app.post("/face-bokeh", tags=["Face Bokeh"])
+@app.post("/face-bokeh/{query}", tags=["Face Bokeh"])
 async def bokeh(file: UploadFile = File(...), query: str = ''):
     contents = await file.read()
     nparr = np.fromstring(contents, np.uint8)
