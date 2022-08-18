@@ -7,4 +7,5 @@ python-multipart
 tensorflow
 opencv-python-headless
 icrawler
+scipy
 #pymatting
