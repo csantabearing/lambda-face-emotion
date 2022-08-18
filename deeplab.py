@@ -48,9 +48,9 @@ class DeepLabModel(object):
             new_x = x * y0 / y
             new_y = y * x0 / x
             if new_x > x:
-                new_y = y
+                new_y = y0
             else:
-                new_x = x
+                new_x = x0
             background = cv2.resize(background, (int(new_y), int(new_x)))[:x0, :y0]
         else:
             background = cv2.blur(image, (x0 // 10, y0 // 10))
