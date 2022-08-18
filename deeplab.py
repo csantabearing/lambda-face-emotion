@@ -4,7 +4,6 @@ import numpy as np
 import tensorflow as tf
 from scipy.special import softmax
 from icrawler.builtin import GoogleImageCrawler
-#from pymatting import estimate_foreground_ml, estimate_alpha_cf, blend
 
 
 class DeepLabModel(object):
@@ -57,9 +56,6 @@ class DeepLabModel(object):
             background = cv2.resize(background, (int(new_y), int(new_x)))[:x0, :y0]
         else:
             background = cv2.blur(image.copy(), (x0 // 10, y0 // 10))
-        #if (mask > 0.9).sum():
-        #    mask = estimate_alpha_cf(image / 255, mask)
-        #foreground = estimate_foreground_ml(image/255, mask)
-        #new_img = blend(background/255, foreground, 1-mask)
+        print('blend', image.shape, mask.shape, background.shape)
         new_img = image * mask + background * (1 - mask)
         return new_img
