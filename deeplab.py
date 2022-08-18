@@ -41,9 +41,9 @@ class DeepLabModel(object):
                 os.mkdir(query)
             except:
                 pass
-            google_crawler = GoogleImageCrawler(storage={'root_dir': f'./{query}'})
+            google_crawler = GoogleImageCrawler(storage={'root_dir': f'/tmp/{query}'})
             google_crawler.crawl(keyword=query, max_num=1)
-            background = cv2.imread(f'./{query}/000001.jpg')
+            background = cv2.imread(f'/tmp/{query}/000001.jpg')
             x0,y0,c0=image.shape
             x,y,c=background.shape
             new_x=x*y0/y
