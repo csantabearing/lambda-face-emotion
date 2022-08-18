@@ -35,7 +35,7 @@ class DeepLabModel(object):
 
     def transform(self, image, mask, query):
         mask = cv2.resize(mask, image.shape[:2][::-1])[:, :, np.newaxis]
-        target_size = image.shape
+        x0, y0, c0 = image.shape
         if query != 'bokeh':
             try:
                 os.mkdir(query)
@@ -44,7 +44,6 @@ class DeepLabModel(object):
             google_crawler = GoogleImageCrawler(storage={'root_dir': f'/tmp/{query}'})
             google_crawler.crawl(keyword=query, max_num=1)
             background = cv2.imread(f'/tmp/{query}/000001.jpg')
-            x0, y0, c0 = image.shape
             x, y, c = background.shape
             new_x = x * y0 / y
             new_y = y * x0 / x
@@ -52,10 +51,9 @@ class DeepLabModel(object):
                 new_y = y
             else:
                 new_x = x
-            background = cv2.resize(background,
-                                    (int(new_y), int(new_x)))[:target_size[0], :target_size[1]]
+            background = cv2.resize(background, (int(new_y), int(new_x)))[:x0, :y0]
         else:
-            background = cv2.blur(image, (5, 5))
+            background = cv2.blur(image, (x0 // 10, y0 // 10))
         #if (mask > 0.9).sum():
         #    mask = estimate_alpha_cf(image / 255, mask)
         #foreground = estimate_foreground_ml(image/255, mask)
