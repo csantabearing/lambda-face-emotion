@@ -48,6 +48,7 @@ class DeepLabModel(object):
             print(x, y, x0, y0)
             new_x = x * y0 / y
             new_y = y * x0 / x
+            print(new_x, new_y)
             if new_x > x:
                 new_y = y0
             else:
@@ -55,7 +56,7 @@ class DeepLabModel(object):
             print(new_x, new_y)
             background = cv2.resize(background, (int(new_y), int(new_x)))[:x0, :y0]
         else:
-            background = cv2.blur(image, (x0 // 10, y0 // 10))
+            background = cv2.blur(image.copy(), (x0 // 10, y0 // 10))
         #if (mask > 0.9).sum():
         #    mask = estimate_alpha_cf(image / 255, mask)
         #foreground = estimate_foreground_ml(image/255, mask)
