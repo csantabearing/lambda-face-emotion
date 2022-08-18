@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 from scipy.special import softmax
 from icrawler.builtin import GoogleImageCrawler
-from pymatting import estimate_foreground_ml, estimate_alpha_cf, blend
+#from pymatting import estimate_foreground_ml, estimate_alpha_cf, blend
 
 
 class DeepLabModel(object):
@@ -34,7 +34,7 @@ class DeepLabModel(object):
         return seg_map[:,:,self.label]
 
     def transform(self, image, mask, query):
-        mask=cv2.resize(mask,image.shape[:2][::-1])
+        mask=cv2.resize(mask,image.shape[:2][::-1])[:,:,np.newaxis]
         target_size=image.shape
         if query != '':
             try:
@@ -55,8 +55,9 @@ class DeepLabModel(object):
             background=cv2.resize(background,(int(new_y),int(new_x)))[:target_size[0],:target_size[1]]
         else:
             background = cv2.blur(image,(5,5))
-        if (mask > 0.9).sum():
-            mask = estimate_alpha_cf(image / 255, mask)
-        foreground = estimate_foreground_ml(image/255, mask)
-        new_img = blend(background/255, foreground, 1-mask)
-        return (255 * new_img).astype(np.uint8)
+        #if (mask > 0.9).sum():
+        #    mask = estimate_alpha_cf(image / 255, mask)
+        #foreground = estimate_foreground_ml(image/255, mask)
+        #new_img = blend(background/255, foreground, 1-mask)
+        new_img = image*mask+background*(1-mask)
+        return new_img
