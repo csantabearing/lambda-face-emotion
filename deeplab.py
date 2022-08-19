@@ -44,18 +44,16 @@ class DeepLabModel(object):
             google_crawler.crawl(keyword=query, max_num=1)
             background = cv2.imread(f'/tmp/{query}/000001.jpg')
             x, y, c = background.shape
-            print(x, y, x0, y0)
             new_x = x * y0 / y
             new_y = y * x0 / x
-            print(new_x, new_y)
-            if new_x > x:
+            if new_x > x0:
                 new_y = y0
             else:
                 new_x = x0
-            print(new_x, new_y)
             background = cv2.resize(background, (int(new_y), int(new_x)))[:x0, :y0]
         else:
             background = cv2.blur(image.copy(), (x0 // 10, y0 // 10))
+            print(background.shape)
         print('blend', image.shape, mask.shape, background.shape)
         new_img = image * mask + background * (1 - mask)
         return new_img
