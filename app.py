@@ -6,8 +6,9 @@ import numpy as np
 import cv2
 import io
 
-model_path = './model.h5'
-model=Sentiment(model_path)
+emotion_model_path = './model.h5'
+face_model_path='./haarcascade_frontalface_default.xml'
+model=Sentiment(emotion_model_path,face_model_path)
 
 app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
 
