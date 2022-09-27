@@ -25,5 +25,5 @@
 - Install the requirements (`pip3 install -r requirements.txt`)
 
 ## Run API
-- Run the api (`uvicorn app:app --host 0.0.0.0`)
+- Run the api (`uvicorn app:app --host 0.0.0.0 --port 8000`)
 - Create a request with docs (http://ec2.ip.address:8000/docs)
