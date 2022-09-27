@@ -1,5 +1,9 @@
 # Deployment on EC2
 
+We are going to deploy a pretrained image segmentation model:
+
+https://github.com/tensorflow/models/tree/master/research/deeplab
+
 ## Create EC2 Instance
 
 - Go to EC2 console: https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#
