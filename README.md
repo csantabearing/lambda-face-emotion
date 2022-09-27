@@ -15,7 +15,7 @@
 
 ## Install dependencies
 - Get the ip address of the instance
-- Change key permissions to 400
+- Change key permissions to 400 (`chmod 400 key.pem`)
 - SSH into the machine `ssh -i key.pem ec2-user@ec2.ip.address`
 - Install git if needed (`sudo apt install git` for ubuntu based distros, `sudo yum install git` for amazon linux)
 - Install pip if needed (`sudo apt install python3-pip` for ubuntu based distros, `sudo yum install python3-pip` for amazon linux)
