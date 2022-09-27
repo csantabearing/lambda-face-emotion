@@ -9,7 +9,7 @@ import io
 model_path = './frozen_inference_graph.pb'
 model = DeepLabModel(model_path)
 
-app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
+app = FastAPI(title='Serverless Lambda FastAPI') #, root_path="/Prod/")
 
 
 @app.post("/face-bokeh/{query}", tags=["Face Bokeh"])
