@@ -14,7 +14,7 @@ We are going to deploy a pretrained image segmentation model:
 - Download key
 - Edit network
 - Enable IPV4 address
-- Open port 8000 from anywhere
+- Open ports 8000-8002 from anywhere
 - Launch Instance
 
 ## Install dependencies
