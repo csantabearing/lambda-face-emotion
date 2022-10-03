@@ -23,7 +23,19 @@ We are going to deploy a pretrained image segmentation model:
 - Change key permissions to 400 (`chmod 400 key.pem`)
 - SSH into the machine `ssh -i key.pem ec2-user@ec2.ip.address`
 - Install git if needed (`sudo apt install git` for ubuntu based distros, `sudo yum install git` for amazon linux)
-- Install pip if needed (`sudo apt install python3-pip` for ubuntu based distros, `sudo yum install python3-pip` for amazon linux)
+- Install Docker (`sudo apt install docker` for ubuntu based distros, `sudo yum install docker` for amazon linux)
+- Start Docker (`sudo systemctl start docker`)
+- Add user to docker group (`sudo usermod -aG docker ${USER}`)
+- Logout and Login again through SSH to take the group changes into account
+- Check if docker installed correctly (`docker run hello-world`)
+- Install Docker-Compose
+
+```
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose version
+```
+
 - Clone the repo (`git clone ...`)
 - If there's permission issues with gitlab, generate ssh keys (`ssh-keygen`) and add them to github account
 - CD into the folder (`cd cloned-repo`)
