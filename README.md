@@ -2,11 +2,11 @@
 
 We are going to deploy a pretrained image segmentation model:
 
-https://github.com/tensorflow/models/tree/master/research/deeplab
+<https://github.com/tensorflow/models/tree/master/research/deeplab>
 
 ## Create EC2 Instance
 
-- Go to EC2 console: https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#
+- Go to EC2 console: <https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1>#
 - Create EC2 instance
 - Pick amazon linux
 - Pick instance type: At least t3.medium
@@ -18,6 +18,7 @@ https://github.com/tensorflow/models/tree/master/research/deeplab
 - Launch Instance
 
 ## Install dependencies
+
 - Get the ip address of the instance
 - Change key permissions to 400 (`chmod 400 key.pem`)
 - SSH into the machine `ssh -i key.pem ec2-user@ec2.ip.address`
@@ -26,8 +27,8 @@ https://github.com/tensorflow/models/tree/master/research/deeplab
 - Clone the repo (`git clone ...`)
 - If there's permission issues with gitlab, generate ssh keys (`ssh-keygen`) and add them to github account
 - CD into the folder (`cd cloned-repo`)
-- Install the requirements (`pip3 install -r requirements.txt`)
 
-## Run API
-- Run the api (`uvicorn app:app --host 0.0.0.0 --port 8000`)
-- Create a request with docs (http://ec2.ip.address:8000/docs)
+## Docker Compose
+
+- Run all the endpoints (`docker-compose -f docker-compose.yaml up --build`)
+- Create a request with docs (<http://ec2.ip.address:8000/docs>)
