@@ -29,3 +29,8 @@ async def sentiment(file: UploadFile = File(...)):
     #We encode the image before returning it
     _, png_img = cv2.imencode('.PNG', return_img)
     return StreamingResponse(io.BytesIO(png_img.tobytes()), media_type="image/png")
+
+
+@app.get("/", tags=["Health Check"])
+async def root():
+    return {"message": "Ok"}
