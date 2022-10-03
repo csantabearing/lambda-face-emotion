@@ -1,5 +1,4 @@
 numpy
-mangum
 fastapi
 pydantic
 uvicorn
@@ -8,4 +7,3 @@ tensorflow
 opencv-python-headless
 icrawler
 scipy
-#pymatting

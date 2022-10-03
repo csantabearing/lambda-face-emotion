@@ -1,7 +1,6 @@
 from starlette.responses import StreamingResponse
 from fastapi import FastAPI, File, UploadFile
 from deeplab import DeepLabModel
-from mangum import Mangum
 import numpy as np
 import cv2
 import io
@@ -13,7 +12,7 @@ model = DeepLabModel(model_path)
 
 #We generate a new FastAPI app in the Prod environment
 #https://fastapi.tiangolo.com/
-app = FastAPI(title='Serverless Lambda FastAPI')  #, root_path="/Prod/")
+app = FastAPI(title='Serverless Lambda FastAPI')
 
 
 #The face-bokeh endpoint receives post requests with the image and returns the transformed image
@@ -30,14 +29,3 @@ async def bokeh(file: UploadFile = File(...), query: str = ''):
     #We encode the image before returning it
     _, png_img = cv2.imencode('.PNG', return_img)
     return StreamingResponse(io.BytesIO(png_img.tobytes()), media_type="image/png")
-
-
-#The root path will be used as the health check endpoint
-@app.get("/", tags=["Health Check"])
-async def root():
-    return {"message": "Ok"}
-
-
-#Mangum is an adapter for running ASGI applications in AWS Lambda
-#https://github.com/jordaneremieff/mangum
-handler = Mangum(app=app)
