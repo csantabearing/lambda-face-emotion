@@ -10,7 +10,7 @@
 - Download key
 - Edit network
 - Enable IPV4 address
-- Open ports 8000-8002 from anywhere
+- Open ports 8000-8003 from anywhere
 - Launch Instance
 
 ## Install dependencies
