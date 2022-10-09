@@ -36,7 +36,11 @@ docker-compose version
 
 ## Face-bokeh
 
-- Write the config.pbtxt with platform: "tensorflow_graphdef"
+- Rename `frozen_inference_graph.pb` to `model.graphdef`
+- Write the config.pbtxt with:
+  - platform: "tensorflow_graphdef"
+  - The input tensor is called `ImageTensor` and should be UINT8 with dims [-1,513,513,3]
+  - The output tensor is called `ResizeBilinear_3` and should be FP32 with dims [-1,513,513,21]
 - Upload to s3 with the following folder strutcture
 
 ```bash
@@ -49,8 +53,11 @@ docker-compose version
 
 ## Face-emotion
 
-- Convert the `model.h5` into a saved model
-- Write the config.pbtxt with platform: "tensorflow_savedmodel"
+- Load the `model.h5` file and convert into the saved model format
+- Write the config.pbtxt with:
+  - platform: "tensorflow_savedmodel"
+  - The input should be FP32 with dims [-1,48,48,1]
+  - The output should be FP32 with dims [-1,7]
 - Upload to s3 with the following strutcture
 
 ```bash
