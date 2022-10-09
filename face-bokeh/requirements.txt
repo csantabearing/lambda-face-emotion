@@ -7,3 +7,4 @@ tensorflow
 opencv-python-headless
 icrawler
 scipy
+tritonclient[http]

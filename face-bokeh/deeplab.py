@@ -1,7 +1,7 @@
 import os
 import cv2
 import numpy as np
-import tensorflow as tf
+import tritonhttpclient
 from scipy.special import softmax
 from icrawler.builtin import GoogleImageCrawler
 
@@ -9,21 +9,24 @@ from icrawler.builtin import GoogleImageCrawler
 class DeepLabModel(object):
     """Class to load deeplab model and run inference."""
 
-    INPUT_TENSOR_NAME = 'ImageTensor:0'
-    OUTPUT_TENSOR_NAME = 'ResizeBilinear_3:0'
-    #The input size is an image with max dimensions 513x513
-    INPUT_SIZE = 513
-    #We are interested in humans which are label 15
-    label = 15
+    def __init__(self, triton_url):
+        self.input_name = 'ImageTensor'
+        self.output_name = 'ResizeBilinear_3'
+        self.model_name = 'face-bokeh'
+        self.model_version = '1'
+        self.label = 15
+        self.triton_client = tritonhttpclient.InferenceServerClient(url=triton_url, verbose=False)
 
-    def __init__(self, path):
-        #We initialize the graph
-        self.graph = tf.Graph()
-        #We get the graph definition from the pretrained model
-        graph_def = tf.compat.v1.GraphDef.FromString(open(path, 'rb').read())
-        with self.graph.as_default():
-            tf.import_graph_def(graph_def, name='')
-        self.sess = tf.compat.v1.Session(graph=self.graph)
+    def predict(self, img):
+        input0 = tritonhttpclient.InferInput(self.input_name, (1, 513, 513, 3), 'UINT8')
+        input0.set_data_from_numpy(img, binary_data=False)
+        output = tritonhttpclient.InferRequestedOutput(self.output_name, binary_data=False)
+        response = self.triton_client.infer(self.model_name,
+                                            model_version=self.model_version,
+                                            inputs=[input0],
+                                            outputs=[output])
+        logits = response.as_numpy(self.output_name)
+        return logits
 
     def get_mask(self, image):
         #We get the image size
@@ -34,9 +37,7 @@ class DeepLabModel(object):
         target_size = (int(resize_ratio * width), int(resize_ratio * height))
         resized_image = cv2.resize(image, target_size, interpolation=cv2.INTER_AREA)
         #We run the model and get the segmentation results
-        batch_seg_map = self.sess.run(
-            self.OUTPUT_TENSOR_NAME,
-            feed_dict={self.INPUT_TENSOR_NAME: [np.asarray(resized_image)]})
+        batch_seg_map = self.predict(resized_image)
         #We apply softmax on a pixel-wise basis
         seg_map = softmax(batch_seg_map[0][:target_size[1], :target_size[0]], axis=-1)
         #We return the channel corresponding to the human segmentation
