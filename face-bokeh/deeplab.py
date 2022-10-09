@@ -15,6 +15,7 @@ class DeepLabModel(object):
         self.model_name = 'face-bokeh'
         self.model_version = '1'
         self.label = 15
+        self.input_size = 513
         self.triton_client = tritonhttpclient.InferenceServerClient(url=triton_url, verbose=False)
 
     def predict(self, img):
@@ -32,7 +33,7 @@ class DeepLabModel(object):
         #We get the image size
         height, width = image.shape[:2]
         #We compute the resize ratio to maintain the aspect ratio
-        resize_ratio = 1.0 * self.INPUT_SIZE / max(width, height)
+        resize_ratio = 1.0 * self.input_size / max(width, height)
         #We compute the size of the image to input and resize the image
         target_size = (int(resize_ratio * width), int(resize_ratio * height))
         resized_image = cv2.resize(image, target_size, interpolation=cv2.INTER_AREA)

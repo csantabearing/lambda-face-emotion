@@ -67,7 +67,7 @@ class Sentiment():
             cropped_img = np.expand_dims(np.expand_dims(resized_roi, -1), 0)
 
             #We run the emotion detection model and get the softmax output
-            prediction = self.predict(cropped_img)
+            prediction = self.predict(cropped_img.astype(np.float32))
 
             #We get the name of the emotion from the model's output
             maxindex = int(np.argmax(prediction))
