@@ -7,8 +7,8 @@ import io
 
 #We instantiate a deeplab model with the location of the pretrained models
 #https://github.com/tensorflow/models/tree/master/research/deeplab
-model_path = './frozen_inference_graph.pb'
-model = DeepLabModel(model_path)
+triton_url = 'triton:8002'
+model = DeepLabModel(triton_url)
 
 #We generate a new FastAPI app in the Prod environment
 #https://fastapi.tiangolo.com/
