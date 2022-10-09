@@ -1,0 +1,15 @@
+name: "face-bokeh"
+platform: "tensorflow_graphdef"
+input [
+  {
+    name: "ImageTensor"
+    data_type: TYPE_UINT8
+    format: FORMAT_NHWC
+    dims: [513,513,3]
+  }
+]
+output {
+    name: "ResizeBilinear_3"
+    data_type: TYPE_FP32
+    dims: [513,513,151]
+  }
