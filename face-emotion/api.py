@@ -8,7 +8,7 @@ import io
 #We instantiate a face-emotion detector with the location of the pretrained models
 triton_url = 'triton:8002'
 face_model_path = './haarcascade_frontalface_default.xml'
-model = Sentiment(triton_url, face_model_path)
+model = Sentiment(face_model_path, triton_url)
 
 #We generate a new FastAPI app in the Prod environment
 #https://fastapi.tiangolo.com/
