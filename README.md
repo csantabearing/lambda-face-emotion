@@ -36,7 +36,7 @@ docker-compose version
 
 ## Face-bokeh
 
-- Write the config.pbtxt
+- Write the config.pbtxt with platform: "tensorflow_graphdef"
 - Upload to s3 with the following folder strutcture
 
 ```bash
@@ -50,7 +50,7 @@ docker-compose version
 ## Face-emotion
 
 - Convert the `model.h5` into a saved model
-- Write the config.pbtxt
+- Write the config.pbtxt with platform: "tensorflow_savedmodel"
 - Upload to s3 with the following strutcture
 
 ```bash
