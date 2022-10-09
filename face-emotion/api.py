@@ -6,7 +6,7 @@ import cv2
 import io
 
 #We instantiate a face-emotion detector with the location of the pretrained models
-triton_url = 'triton:8002'
+triton_url = 'http://triton:8002'
 face_model_path = './haarcascade_frontalface_default.xml'
 model = Sentiment(face_model_path, triton_url)
 
