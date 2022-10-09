@@ -24,7 +24,7 @@ async def sentiment(file: UploadFile = File(...)):
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
     #We run the model to get the transformed image
-    return_img = model.predict(img)
+    return_img = model.transform(img)
 
     #We encode the image before returning it
     _, png_img = cv2.imencode('.PNG', return_img)

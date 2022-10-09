@@ -38,7 +38,7 @@ class DeepLabModel(object):
         target_size = (int(resize_ratio * width), int(resize_ratio * height))
         resized_image = cv2.resize(image, target_size, interpolation=cv2.INTER_AREA)
         #We run the model and get the segmentation results
-        batch_seg_map = self.predict(resized_image)
+        batch_seg_map = self.predict(resized_image[np.newaxis, :, :, :])
         #We apply softmax on a pixel-wise basis
         seg_map = softmax(batch_seg_map[0][:target_size[1], :target_size[0]], axis=-1)
         #We return the channel corresponding to the human segmentation
