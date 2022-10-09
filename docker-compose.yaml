@@ -16,3 +16,11 @@ services:
       context: ./face-emotion
     ports:
       - "8002:8000"
+  inference_server:
+    image: nvcr.io/nvidia/tritonserver:22.06-py3
+    ports:
+      - "8003:8002"
+    command:
+      [
+        "tritonserver --model-repository=s3://triton-repository/models/"
+      ]
