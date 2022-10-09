@@ -2,7 +2,7 @@
 
 ## Create EC2 Instance
 
-- Go to EC2 console: <https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1>#
+- Go to EC2 console: <https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1>
 - Create EC2 instance
 - Pick amazon linux
 - Pick instance type: At least t3.medium
@@ -39,8 +39,8 @@ docker-compose version
 - Rename `frozen_inference_graph.pb` to `model.graphdef`
 - Write the config.pbtxt with:
   - platform: "tensorflow_graphdef"
-  - The input tensor is called `ImageTensor` and should be UINT8 with dims [-1,513,513,3]
-  - The output tensor is called `ResizeBilinear_3` and should be FP32 with dims [-1,513,513,21]
+  - The input tensor is called `ImageTensor` and should be UINT8 with dims `[-1,513,513,3]`
+  - The output tensor is called `ResizeBilinear_3` and should be FP32 with dims `[-1,513,513,21]`
 - Upload to s3 with the following folder strutcture
 
 ```bash
@@ -56,8 +56,8 @@ docker-compose version
 - Load the `model.h5` file and convert into the saved model format
 - Write the config.pbtxt with:
   - platform: "tensorflow_savedmodel"
-  - The input should be FP32 with dims [-1,48,48,1]
-  - The output should be FP32 with dims [-1,7]
+  - The input should be FP32 with dims `[-1,48,48,1]`
+  - The output should be FP32 with dims `[-1,7]`
 - Upload to s3 with the following strutcture
 
 ```bash
@@ -81,7 +81,7 @@ docker-compose version
 - Clone the repo (`git clone ...`)
 - If there's permission issues with gitlab, generate ssh keys (`ssh-keygen`) and add them to github account
 - CD into the folder (`cd cloned-repo`)
-- Create the .aws.env file in the root of the repo with the following:
+- Create the `.aws.env` file in the root of the repo with the following:
 
 ```
 AWS_ACCESS_KEY_ID=SOME_ACCESS_KEY
@@ -91,9 +91,14 @@ AWS_DEFAULT_REGION=us-east-1
 
 # Triton server
 
-- Run `docker run --env-file .envs3 -p8000:8000 -p8001:8001 -p8002:8002 --rm --net=host nvcr.io/nvidia/tritonserver:22.06-py3 tritonserver --model-repository=s3://triton-repository/models/`
+- Running the triton server alone
 
-## Docker Compose
+```bash
+docker run --env-file .envs3 -p8000:8000 -p8001:8001 -p8002:8002 --rm --net=host nvcr.io/nvidia/tritonserver:22.06-py3 tritonserver --model-repository=s3://triton-repository/models/
+```
 
-- Run all the endpoints (`docker-compose -f docker-compose.yaml up --build`)
+# Docker Compose
+
+- Add triton to the `docker-compose.yaml` with image, env file, ports and command.
+- Run all the endpoints and triton server (`docker-compose -f docker-compose.yaml up --build`)
 - Create a request with docs (<http://ec2.ip.address:8000/docs>)
