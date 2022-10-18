@@ -21,38 +21,26 @@
 
 - Initialize DVC (`dvc init`) in your repo
 
-- Add files to git (`git add .dvc`)
+- Add s3 remote (`dvc remote add -d storage s3://triton-repository/data/`)
 
-- Add files to git (`git add .dvcignore`)
+- Add files to git (`git add .`)
 
 - Commit changes to git (`git commit -m "dvc init"`)
 
 - Create a data folder (`mkdir data`)
 
-- Enter the data folder (`cd data`)
-
-- Download the pets dataset:
+- Download the pets dataset in the data folder:
 
 ```
 wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/images.tar.gz
 wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/annotations.tar.gz
 ```
 
-- Add the raw image data to dvc (`dvc add data/images.tar.gz`)
+- Add the raw image data to dvc (`dvc add data/`)
 
-- Add files to git (`git add data/images.tar.gz.dvc data/.gitignore`)
-
-- Add the raw annotation data to dvc (`dvc add data/annotations.tar.gz`)
-
-- Add files to git (`git add data/annotations.tar.gz.dvc data/.gitignore`)
+- Add files to git (`git add data.dvc .gitignore`)
 
 - Commit changes to git (`git commit -am "Raw data"`)
-
-- Add s3 remote (`dvc remote add -d storage s3://triton-repository/data/`)
-
-- Add config to git (`git add .dvc/config`)
-
-- Commit changes in git (`git commit -am "DVC Storage"`)
 
 - Push data with dvc (`dvc push`)
 
@@ -63,13 +51,9 @@ tar -xzf images.tar.gz
 tar -xzf annotations.tar.gz
 ```
 
-- Add files (`dvc add data/images`)
+- Add files (`dvc add data/`)
 
-- Add to git (`git add data/.gitignore data/images.dvc`)
-
-- Add files (`dvc add data/annotations`)
-
-- Add to git (`git add data/.gitignore data/annotations.dvc`)
+- Add to git (`git add data.dvc .gitignore`)
 
 - Commit changes to git (`git commit -am "Uncompressed data"`)
 
