@@ -48,6 +48,8 @@ wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/annotations.tar.gz
 
 - Add config to git (`git add .dvc/config`)
 
+- Commit changes in git (`git commit -am "DVC Storage"`)
+
 - Push (`dvc push`)
 
 - Uncompress the dataset
