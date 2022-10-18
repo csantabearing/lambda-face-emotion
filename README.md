@@ -23,9 +23,13 @@
 
 - Add files to git (`git add .dvc`)
 
+- Add files to git (`git add .dvcignore`)
+
 - Commit changes to git (`git commit -m "dvc init"`)
 
 - Create a data folder (`mkdir data`)
+
+- Enter the data folder (`cd data`)
 
 - Download the pets dataset:
 
@@ -50,7 +54,7 @@ wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/annotations.tar.gz
 
 - Commit changes in git (`git commit -am "DVC Storage"`)
 
-- Push (`dvc push`)
+- Push data with dvc (`dvc push`)
 
 - Uncompress the dataset
 
@@ -59,4 +63,14 @@ tar -xzf images.tar.gz
 tar -xzf annotations.tar.gz
 ```
 
-- Add files
+- Add files (`dvc add data/images`)
+
+- Add to git (`git add data/.gitignore data/images.dvc`)
+
+- Add files (`dvc add data/annotations`)
+
+- Add to git (`git add data/.gitignore data/annotations.dvc`)
+
+- Commit changes to git (`git commit -am "Uncompressed data"`)
+
+- Push data with dvc (`dvc push`)
