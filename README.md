@@ -53,7 +53,7 @@ tar -xzf annotations.tar.gz
 
 - Add files (`dvc add data/`)
 
-- Add to git (`git add data.dvc .gitignore`)
+- Add to git (`git add data.dvc`)
 
 - Commit changes to git (`git commit -am "Uncompressed data"`)
 
