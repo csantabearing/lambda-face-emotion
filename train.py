@@ -49,3 +49,4 @@ callbacks = [keras.callbacks.ModelCheckpoint("oxford_segmentation.h5", save_best
 # Train the model, doing validation at the end of each epoch.
 epochs = 15
 model.fit(train_gen, epochs=epochs, validation_data=val_gen, callbacks=callbacks)
+model.save('./segmentation/')

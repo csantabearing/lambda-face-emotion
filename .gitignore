@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 data/
 mlruns/
+segmentation/ 
 
 # C extensions
 *.so
