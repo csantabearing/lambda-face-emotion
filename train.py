@@ -9,8 +9,8 @@ import mlflow.keras
 
 mlflow.keras.autolog()
 
-input_dir = "images/"
-target_dir = "annotations/trimaps/"
+input_dir = "data/images/"
+target_dir = "data/annotations/trimaps/"
 img_size = (160, 160)
 num_classes = 3
 batch_size = 32
