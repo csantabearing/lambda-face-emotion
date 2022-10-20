@@ -35,10 +35,8 @@ class DeepLabModel(object):
         resized_image = cv2.resize(image, target_size, interpolation=cv2.INTER_AREA)
         #We run the model and get the segmentation results
         batch_seg_map = self.predict(resized_image[np.newaxis, :, :, :].astype(np.float32))
-        #We apply softmax on a pixel-wise basis
-        seg_map = softmax(batch_seg_map[0][:target_size[1], :target_size[0]], axis=-1)
-        #We return the channel corresponding to the human segmentation
-        return seg_map[:, :, self.label]
+        #We return the channel corresponding to the pet segmentation
+        return batch_seg_map[0, :, :, self.label]
 
     def transform(self, image, mask, query):
         #We resize the mask to match the original image
