@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8001:8000"
-  face-bokeh:
+  pet-bokeh:
     build:
       context: ./face-bokeh
     ports:
