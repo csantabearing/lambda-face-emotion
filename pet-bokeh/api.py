@@ -16,7 +16,7 @@ app = FastAPI(title='Pet Bokeh')
 
 
 #The face-bokeh endpoint receives post requests with the image and returns the transformed image
-@app.post("/face-bokeh/{query}", tags=["Pet Bokeh"])
+@app.post("/pet-bokeh/{query}", tags=["Pet Bokeh"])
 async def bokeh(file: UploadFile = File(...), query: str = ''):
     #We read the file and decode it
     contents = await file.read()
