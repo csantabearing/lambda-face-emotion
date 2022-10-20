@@ -4,13 +4,13 @@
 
 - Go to EC2 console: <https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1>
 - Create EC2 instance
-- Pick amazon linux
-- Pick instance type: At least t3.medium
+- Pick deep learning ami
+- Pick instance type: At least p3.2xlarge
 - Create key-pair
 - Download key
 - Edit network
 - Enable IPV4 address
-- Open ports 8000-8003 from anywhere
+- Open ports 8000-8004 from anywhere
 - Launch Instance
 
 ## Install dependencies
@@ -32,69 +32,30 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose version
 ```
 
-# Model repositories
-
-## Face-bokeh
-
-- Rename `frozen_inference_graph.pb` to `model.graphdef`
-- Write the config.pbtxt with:
-  - platform: "tensorflow_graphdef"
-  - The input tensor is called `ImageTensor` and should be UINT8 with dims `[-1,513,513,3]`
-  - The output tensor is called `ResizeBilinear_3` and should be FP32 with dims `[-1,513,513,21]`
-- Upload to s3 with the following folder strutcture
-
-```bash
-    models/
-    └─face-bokeh/
-      └─config.pbtxt
-      └─1/
-        └─model.graphdef
-```
-
-## Face-emotion
-
-- Load the `model.h5` file and convert into the saved model format
-- Write the config.pbtxt with:
-  - platform: "tensorflow_savedmodel"
-  - The input should be FP32 with dims `[-1,48,48,1]`
-  - The output should be FP32 with dims `[-1,7]`
-- Upload to s3 with the following strutcture
-
-```bash
-    models/
-    └─face-emotion/
-      └─config.pbtxt
-      └─1/
-        └─model.savedmodel/
-          └-keras_metadata.pb
-          └-saved_model.pb
-          └─assets/
-          └─variables/
-            └─variables.data-00000-of-00001
-            └─variables.index
-```
-
-# Deploy
-
-## Clone the repo
-
-- Clone the repo (`git clone ...`)
-- If there's permission issues with gitlab, generate ssh keys (`ssh-keygen`) and add them to github account
-- CD into the folder (`cd cloned-repo`)
-- Create the `.aws.env` file in the root of the repo with the following:
+- Install the requirements (`pip install -r requirements.txt`) the pip and python version might be different
+- Create data directory (`mkdir data`)
+- Download and uncompress the training data in the data folder
 
 ```
-AWS_ACCESS_KEY_ID=SOME_ACCESS_KEY
-AWS_SECRET_ACCESS_KEY=SOME_SECRET_ACCESS_KEY
-AWS_DEFAULT_REGION=us-east-1
+wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/images.tar.gz
+wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/annotations.tar.gz
+tar -xzf images.tar.gz
+tar -xzf annotations.tar.gz
 ```
 
-# Triton server
+- Train the model (`python train.py`)
+- Run ml-flow ui (`mlflow ui --port 8004 --host 0.0.0.0`)
+- Configure awscli (`aws configure`)
+- Upload the model to the s3 model repository
 
-- Running the triton server alone
+```
+aws s3 cp --recursive segmentation s3://triton-repository/models/pet-bokeh/1/model.savedmodel/
+```
 
-```bash
-docker run --env-file .envs3 -p8000:8000 -p8001:8001 -p8002:8002 --rm --net=host nvcr.io/nvidia/tritonserver:22.06-py3 tritonserver --model-repository=s3://triton-repository/models/
+- Upload the config
+
+```
+aws s3 cp pet-bokeh/config.pbtxt s3://triton-repository/models/pet-bokeh/config.pbtxt
 ```
 
 # Docker Compose
