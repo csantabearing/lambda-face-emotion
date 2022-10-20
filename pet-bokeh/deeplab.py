@@ -14,7 +14,7 @@ class DeepLabModel(object):
         self.output_name = 'Output'
         self.model_name = 'pet-bokeh'
         self.model_version = '1'
-        self.label = 1
+        self.label = 0
         self.input_size = 160
         self.triton_client = tritonhttpclient.InferenceServerClient(url=triton_url, verbose=False)
 
