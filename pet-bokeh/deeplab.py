@@ -10,11 +10,11 @@ class DeepLabModel(object):
     """Class to load deeplab model and run inference."""
 
     def __init__(self, triton_url='triton:8002'):
-        self.input_name = 'ImageTensor'
-        self.output_name = 'ResizeBilinear_3'
-        self.model_name = 'face-bokeh'
+        self.input_name = 'Input'
+        self.output_name = 'Output'
+        self.model_name = 'pet-bokeh'
         self.model_version = '1'
-        self.label = 0
+        self.label = 2
         self.input_size = 160
         self.triton_client = tritonhttpclient.InferenceServerClient(url=triton_url, verbose=False)
 
