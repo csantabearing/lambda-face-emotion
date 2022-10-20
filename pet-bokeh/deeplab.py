@@ -19,7 +19,7 @@ class DeepLabModel(object):
         self.triton_client = tritonhttpclient.InferenceServerClient(url=triton_url, verbose=False)
 
     def predict(self, img):
-        input0 = tritonhttpclient.InferInput(self.input_name, (1, 160, 160, 3), 'UINT8')
+        input0 = tritonhttpclient.InferInput(self.input_name, (1, 160, 160, 3), 'FP32')
         input0.set_data_from_numpy(img, binary_data=False)
         output = tritonhttpclient.InferRequestedOutput(self.output_name, binary_data=False)
         response = self.triton_client.infer(self.model_name,
