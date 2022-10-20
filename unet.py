@@ -4,7 +4,7 @@ from tensorflow import keras
 
 
 def get_model(img_size, num_classes):
-    inputs = keras.Input(shape=img_size + (3,))
+    inputs = keras.Input(shape=img_size + (3,), name='Input')
 
     ### [First half of the network: downsampling inputs] ###
 
@@ -52,7 +52,7 @@ def get_model(img_size, num_classes):
         previous_block_activation = x  # Set aside next residual
 
     # Add a per-pixel classification layer
-    outputs = layers.Conv2D(num_classes, 3, activation="softmax", padding="same")(x)
+    outputs = layers.Conv2D(num_classes, 3, activation="softmax", padding="same", name='Output')(x)
 
     # Define the model
     model = keras.Model(inputs, outputs)
