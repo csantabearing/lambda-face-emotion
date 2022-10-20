@@ -8,7 +8,7 @@ services:
       - "8001:8000"
   pet-bokeh:
     build:
-      context: ./face-bokeh
+      context: ./pet-bokeh
     ports:
       - "8002:8000"
   face-emotion:
