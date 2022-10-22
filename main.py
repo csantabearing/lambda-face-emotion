@@ -9,6 +9,6 @@ app = FastAPI(title='Serverless Lambda FastAPI')
 
 @app.get("/", tags=["Health Check"])
 async def root():
-    bokeh = requests.get('http://pet-bokeh:8000/')
-    emotion = requests.get('http://face-emotion:8000/')
+    bokeh = requests.get('http://pet-bokeh:8002/')
+    emotion = requests.get('http://face-emotion:8003/')
     return {"face-bokeh": bokeh.json()['message'], "face-emotion": emotion.json()['message']}
