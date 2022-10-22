@@ -24,7 +24,7 @@ spec:
         io.kompose.service: main
     spec:
       containers:
-        - image: lambda-face-emotion-main
+        - image: main
           imagePullPolicy: Never
           name: main
           ports:

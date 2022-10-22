@@ -11,8 +11,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: "8000"
-      port: 8000
+    - name: "8004"
+      port: 8004
       targetPort: 8000
   selector:
     io.kompose.service: main
