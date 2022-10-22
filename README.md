@@ -53,12 +53,13 @@ Define tasks for each of the docker images (main, face-emotion, pet-bokeh, trito
 
 - Select fargate launch type
 - Change the name of the task: (yourname-main, yourname-face-emotion, yourname-pet-bokeh)
+- Task role: s3ecsrole
 - Change the task memory and CPU
 - Add container:
   - Change the name
   - Use the image URI (e.g `681261969843.dkr.ecr.us-east-1.amazonaws.com/mlo4/face-emotion:latest`)
   - Add 8000 to the port mappings
-  - For triton change the command to (`tritonserver --model-repository=s3://triton-repository/models/`)
+  - For triton change the entrypoint to (`tritonserver,--model-repository=s3://triton-repository/models/`)
 - Create
 
 Inside your cluster, create a new service for each task (yourname-main, yourname-face-emotion, yourname-pet-bokeh, yourname-triton):
