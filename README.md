@@ -49,7 +49,7 @@ Create a new Networking only ECS cluster from the console <https://us-east-1.con
 aws ecs create-cluster --cluster-name yourname-cluster
 ```
 
-Define tasks for each of the docker images (main, face-emotion, pet-bokeh) in the console <https://us-east-1.console.aws.amazon.com/ecs/home?region=us-east-1#/taskDefinitions/create>:
+Define tasks for each of the docker images (main, face-emotion, pet-bokeh, triton) in the console <https://us-east-1.console.aws.amazon.com/ecs/home?region=us-east-1#/taskDefinitions/create>:
 
 - Select fargate launch type
 - Change the name of the task: (yourname-main, yourname-face-emotion, yourname-pet-bokeh)
@@ -58,12 +58,13 @@ Define tasks for each of the docker images (main, face-emotion, pet-bokeh) in th
   - Change the name
   - Use the image URI (e.g `681261969843.dkr.ecr.us-east-1.amazonaws.com/mlo4/face-emotion:latest`)
   - Add 8000 to the port mappings
+  - For triton change the command to (`tritonserver --model-repository=s3://triton-repository/models/`)
 - Create
 
-Inside your cluster, create a new service for each task (yourname-main, yourname-face-emotion, yourname-pet-bokeh):
+Inside your cluster, create a new service for each task (yourname-main, yourname-face-emotion, yourname-pet-bokeh, yourname-triton):
 
 - Launch type: Fargate
-- Pick the Task definition: (yourname-main, yourname-face-emotion, yourname-pet-bokeh)
+- Pick the Task definition: (yourname-main, yourname-face-emotion, yourname-pet-bokeh, yourname-triton)
 - Service name: (main, face-emotion, pet-bokeh)
 - Number of tasks: 1
 - Next page
@@ -74,7 +75,7 @@ Inside your cluster, create a new service for each task (yourname-main, yourname
 - Auto-assign public IP: Enabled
 - Enable service discovery integration: True
   - Namespace name: local
-  - Service discovery name: (main, face-emotion, pet-bokeh)
+  - Service discovery name: (main, face-emotion, pet-bokeh, triton)
   - TTL: 60 seconds
 - Create service
 
