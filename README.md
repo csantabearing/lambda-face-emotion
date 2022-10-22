@@ -79,4 +79,6 @@ Inside your cluster, create a new service for each task (yourname-main, yourname
   - TTL: 60 seconds
 - Create service
 
+To update a service if the docker changed run `aws ecs update-service --cluster mlo4test --service face-emotion --force-new-deployment` or update from the console with "Force New Deployment"
+
 Check <http://main.tasks.public.ip:8000/docs>
