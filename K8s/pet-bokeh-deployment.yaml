@@ -25,6 +25,7 @@ spec:
     spec:
       containers:
         - image: pet-bokeh
+          imagePullPolicy: Never
           name: pet-bokeh
           ports:
             - containerPort: 8000

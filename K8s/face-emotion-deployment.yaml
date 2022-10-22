@@ -25,6 +25,7 @@ spec:
     spec:
       containers:
         - image: face-emotion
+          imagePullPolicy: Never
           name: face-emotion
           ports:
             - containerPort: 8000
