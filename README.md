@@ -43,6 +43,7 @@ kubectl create secret generic aws-env --from-literal='AWS_ACCESS_KEY_ID=YOUR_ACC
 ## Locally built images
 
 - Use minkube's docker (`eval $(minikube docker-env)`)
+- Pull the triton image (`docker pull nvcr.io/nvidia/tritonserver:22.06-py3`)
 - Build all the docker images
 
 ```
