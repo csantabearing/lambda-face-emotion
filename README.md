@@ -34,6 +34,14 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 - Start a minikube cluster (`minikube start`)
 - Set an alias for kubectl (`alias kubectl="minikube kubectl --"`)
+- For triton we need to add the credentials as secrets
+
+```
+kubectl create secret generic aws-env --from-literal='AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY' --from-literal='AWS_SECRET_ACCESS_KEY=YOUR_SECRET_ACCESS_KEY' --from-literal='AWS_DEFAULT_REGION=us-east-1'
+```
+
+## Locally built images
+
 - Use minkube's docker (`eval $(minikube docker-env)`)
 - Build all the docker images
 
@@ -43,5 +51,13 @@ docker build -t face-emotion face-emotion/
 docker build -t pet-bokeh pet-bokeh/
 ```
 
+- Load all the kubernetes resources (`kubectl apply -f K8s/`)
+- Forward the main port (`kubectl port-forward svc/main 8004:8004 --address 0.0.0.0`)
+
+## Pulling from ECR
+
+- Configure credentials (`minikube addons configure registry-creds`)
+- Enable the addon (`minikube addons enable registry-creds`)
+- Edit K8s/ECR/*.yaml to use your ECRs
 - Load all the kubernetes resources (`kubectl apply -f K8s/`)
 - Forward the main port (`kubectl port-forward svc/main 8004:8004 --address 0.0.0.0`)

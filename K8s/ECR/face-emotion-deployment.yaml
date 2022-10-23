@@ -24,8 +24,7 @@ spec:
         io.kompose.service: face-emotion
     spec:
       containers:
-        - image: face-emotion
-          imagePullPolicy: Never
+        - image: 681261969843.dkr.ecr.us-east-1.amazonaws.com/mlo4/face-emotion:latest
           name: face-emotion
           ports:
             - containerPort: 8000

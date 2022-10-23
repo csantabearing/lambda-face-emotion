@@ -24,8 +24,7 @@ spec:
         io.kompose.service: pet-bokeh
     spec:
       containers:
-        - image: pet-bokeh
-          imagePullPolicy: Never
+        - image: 681261969843.dkr.ecr.us-east-1.amazonaws.com/mlo4petbokeh:latest
           name: pet-bokeh
           ports:
             - containerPort: 8000
