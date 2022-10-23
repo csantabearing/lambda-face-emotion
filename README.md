@@ -24,42 +24,24 @@
 - Add user to docker group (`sudo usermod -aG docker ${USER}`)
 - Logout and Login again through SSH to take the group changes into account
 - Check if docker installed correctly (`docker run hello-world`)
-- Install Docker-Compose
+- Install minikube
 
 ```
-sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-docker-compose version
-```
-
-- Install the requirements (`pip install -r requirements.txt`) the pip and python version might be different
-- Create data directory (`mkdir data`)
-- Download and uncompress the training data in the data folder
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 ```
-wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/images.tar.gz
-wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/annotations.tar.gz
-tar -xzf images.tar.gz
-tar -xzf annotations.tar.gz
-```
 
-- Train the model (`python train.py`)
-- Run ml-flow ui (`mlflow ui --port 8004 --host 0.0.0.0`)
-- Configure awscli (`aws configure`)
-- Upload the model to the s3 model repository
+- Start a minikube cluster (`minikube start`)
+- Set an alias for kubectl (`alias kubectl="minikube kubectl --"`)
+- Use minkube's docker (`eval $(minikube docker-env)`)
+- Build all the docker images
 
 ```
-aws s3 cp --recursive segmentation s3://triton-repository/models/pet-bokeh/1/model.savedmodel/
+docker build -t main .
+docker build -t face-emotion face-emotion/
+docker build -t pet-bokeh pet-bokeh/
 ```
 
-- Upload the config
-
-```
-aws s3 cp pet-bokeh/config.pbtxt s3://triton-repository/models/pet-bokeh/config.pbtxt
-```
-
-# Docker Compose
-
-- Add triton to the `docker-compose.yaml` with image, env file, ports and command.
-- Run all the endpoints and triton server (`docker-compose -f docker-compose.yaml up --build`)
-- Create a request with docs (<http://ec2.ip.address:8000/docs>)
+- Load all the kubernetes resources (`kubectl apply -f K8s/`)
+- Forward the main port (`kubectl port-forward svc/main 8004:8004 --address 0.0.0.0`)
