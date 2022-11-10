@@ -14,6 +14,15 @@
 - Create a new volume called `models`
 - Create a notebook instance that uses that volume
 - Open a terminal in the notebook instance and clone the repo
+- Create a data directory and download data
+
+```
+wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/images.tar.gz
+wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/annotations.tar.gz
+tar -xzf images.tar.gz
+tar -xzf annotations.tar.gz
+```
+
 - Install requirements
 - Open the training notebook Training.ipynb
 - Train and save the model on the `models` volume
