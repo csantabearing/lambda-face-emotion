@@ -23,7 +23,7 @@ spec:
         - --model_base_path=/models
         command:
         - /usr/bin/tensorflow_model_server
-        image: tensorflow/serving:latest
+        image: tensorflow/serving:2.11.0-rc2
         imagePullPolicy: IfNotPresent
         livenessProbe:
           initialDelaySeconds: 30
