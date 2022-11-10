@@ -23,4 +23,10 @@
 kubectl apply -f K8s/
 ```
 
+- Make sure the deployment is running
+
+```
+kubectl get pods -n kubeflow-user
+```
+
 - Check the model with the Inference.ipynb notebook
