@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pet-bokeh
+  name: pet-bokeh-v1
+  namespace: kubeflow-user
+spec:
+  selector:
+    matchLabels:
+      app: pet-bokeh
+  template:
+    metadata:
+      labels:
+        app: pet-bokeh
+        version: v1
+    spec:
+      containers:
+      - args:
+        - --port=9000
+        - --rest_api_port=8500
+        - --model_name=pet-bokeh
+        - --model_base_path=/models
+        command:
+        - /usr/bin/tensorflow_model_server
+        image: tensorflow/serving:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          tcpSocket:
+            port: 9000
+        name: pet-bokeh
+        ports:
+        - containerPort: 9000
+        - containerPort: 8500
+        volumeMounts:
+        - mountPath: /models
+          name: model-serve-storage
+      volumes:
+        - name: model-serve-storage
+          persistentVolumeClaim:
+            claimName: models
