@@ -14,5 +14,12 @@
 - Create a notebook instance
 - Open a terminal in the notebook instance and clone the repo
 - Install requirements
-- Open the training notebook
+- Open the training notebook Training.ipynb
 - Train and save the model on the `models` volume
+- ssh back into the machine and deploy the model
+
+```
+kubectl apply -f K8s/
+```
+
+- Check the model with the Inference.ipynb notebook
